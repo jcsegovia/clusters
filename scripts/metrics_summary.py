@@ -38,11 +38,20 @@ subdir = f'{MAIN_METRICS_REPORT_DIR}/{report_dir}'
 os.mkdir(subdir)
 
 df_all = {}
+clusters_all = []
+hyper_params_all = []
 for work_dir in DIRECTORIES:
     report_directories = os.listdir(work_dir)
     for report_dir in report_directories:
         if report_dir.startswith('report_'):
             path = f'{work_dir}/{report_dir}'
+            # cluster
+            cluster_id = Utils.read_file_by_lines(f'{path}/cluster_id.txt')
+            clusters_all.append(cluster_id)
+            # hyperparams
+            hyper_params = Utils.read_file_by_lines(f'{path}/hyper_params.txt')
+            hyper_params_all.append(hyper_params)
+            # dataframe
             csv_data = f'{path}/main_metrics.csv'
             df = pd.read_csv(csv_data)
             df['cluster'] = df['cluster'].apply(lambda x: x+1)
@@ -56,6 +65,6 @@ for work_dir in DIRECTORIES:
             print(report_dir, path)
 
 new_files, new_plus_files = Utils.generate_metrics_summary(df_all, subdir)
-Utils.generate_metrics_summary_html(subdir, new_files, new_plus_files)
+Utils.generate_metrics_summary_html(subdir, new_files, new_plus_files, clusters_all, hyper_params_all)
 
 print('Done.')

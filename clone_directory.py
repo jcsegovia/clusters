@@ -58,7 +58,8 @@ if include_scripts:
     print('Copying scripts...')
     python_scripts = os.listdir('./scripts')
     for script in python_scripts:
-        print(f'Copying ./scripts/{script} -> {DST_DIR}')
-        shutil.copy(f'./scripts/{script}', DST_DIR)
+        if script.endswith('.py'):
+            print(f'Copying ./scripts/{script} -> {DST_DIR}')
+            shutil.copy(f'./scripts/{script}', DST_DIR)
 
 print('Done.')
