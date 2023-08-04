@@ -1,33 +1,70 @@
-Warm Start
+Quick Start
+===========
+
+1. Copy source directory to destination one
+
+.. code-block:: bash
+
+    python clone_directory.py <src_dir> <dst_dir> <run_dir_name>
+
+    E.g. (warm start, using already sampled files without classification)
+    python clone_directory.py 0_data_step_2_withtout_classify ../clusters_run test_1
+
+
+2. Change directory to the run one
+
+.. code-block:: bash
+
+    cd <dst_dir>
+
+    E.g.
+    cd ../clusters_run
+
+
+3. Update run properties if required
+
+Edit each configuration properties file:
+
+E.g.
+
+.. code-block:: bash
+
+    vi ./test1/AA_618_A59/config.properties
+    vi ./test1/AA_635_A45/config.properties
+    vi ./test1/AA_661_A118/config.properties
+
+
+4. Run everything (all algorithms, all clusters)
+
+E.g.
+
+.. code-block:: bash
+
+    python launcher.py ./test_1
+
+Main Results are available at (click on the HTML file for a summary):
+
+.. code-block:: bash
+
+    ./main_metrics_reports/main_metrics_reports_<DdateTime>
+
+Detailed results are available at (click on the HTML file for a summary):
+
+.. code-block:: bash
+
+    ./test1/AA_618_A59/output/report_<DateTime>
+    ./test1/AA_635_A45/output/report_<DateTime>
+    ./test1/AA_661_A118/output/report_<DateTime>
+
+
+Other runs
 ==========
-
-1. copy already sampled data:
-
-.. code-block:: bash
-
-    python clone_directory.py 0_data_step_2_withtout_classify 0_run_1
-
-``0_run_1`` directory will be created
-
-
-2. copy properties
-
-.. code-block:: bash
-
-    python copy_properties.py 0_run_1
-
-Copy properties from ``0_properties_base`` into ``0_run_1``
-
-Update properties if required (properties can be passed by command line too)
-
-
-3. run
 
 To run all default clusters for all algorithms (**preferred way**):
 
 .. code-block:: bash
 
-    python launcher.py
+    python launcher.py <dir>
 
 To run specific cluster and algorithm
 
@@ -55,18 +92,24 @@ Cold Start
 
 .. code-block:: bash
 
-    python clone_directory.py 0_data_clean_all 0_run_1
+    python clone_directory.py 0_data_clean_all <dst_dir> <run_dir_name>
 
-``0_run_1`` directory will be created
+    E.g.
+    python clone_directory.py 0_data_clean_all ./clusters_work test_1
+
+Destination directories will be created
 
 
 2. copy properties
 
 .. code-block:: bash
 
-    python copy_properties.py 0_run_1
+    python copy_properties.py <dst_dir>
 
-Copy properties from ``0_properties_base`` into ``0_run_1``
+    E.g.
+    python copy_properties.py ../clusters_work/test_1
+
+Copy properties from ``0_properties_base`` into ``../clusters_work/test_1``
 
 Update properties if required (properties can be passed by command line too)
 
@@ -76,6 +119,7 @@ Update properties if required (properties can be passed by command line too)
 
 .. code-block:: bash
 
+    cd <dst_dir>
     python main.py -dir=./test_1/AA_618_A59 -task=preproc
     python main.py -dir=./test_1/AA_635_A45 -task=preproc
     python main.py -dir=./test_1/AA_661_A118 -task=preproc
@@ -85,6 +129,7 @@ Update properties if required (properties can be passed by command line too)
 
 .. code-block:: bash
 
+    cd <dst_dir>
     python main.py -dir=./test_1/AA_618_A59 -task=list
     python main.py -dir=./test_1/AA_635_A45 -task=list
     python main.py -dir=./test_1/AA_661_A118 -task=list
@@ -94,6 +139,7 @@ Update properties if required (properties can be passed by command line too)
 
 .. code-block:: bash
 
+    cd <dst_dir>
     python main.py -dir=./test_1/AA_618_A59 -task="load,sampling,classify" -cluster=UBC17_a -model=all
     python main.py -dir=./test_1/AA_618_A59 -task="load,sampling,classify" -cluster=UBC17_a -model=OPTICS
 
@@ -102,6 +148,7 @@ Update properties if required (properties can be passed by command line too)
 
 .. code-block:: bash
 
+    cd <dst_dir>
     python main.py -dir=./test_1/AA_618_A59 -task=classify -cluster=UBC17_a -model=all
     python main.py -dir=./test_1/AA_618_A59 -task=classify -cluster=UBC17_a -model=DBSCAN
     python main.py -dir=./test_1/AA_618_A59 -task=classify -cluster=UBC17_a -model=OPTICS -CLASSIFIER.OPTICS="min_cluster_size=0.5,xi=0.05"
@@ -112,11 +159,18 @@ Update properties if required (properties can be passed by command line too)
 
 .. code-block:: bash
 
-    python launcher.py
+    cd <dst_dir>
+    python launcher.py <run_dir>
+
+    E.g.
+    python launcher.py ./test_1
 
 
 Directory structure and files
 =============================
+
+cluster directory
+-----------------
 
 * 0_data_clean_all (directory containing Vizier archive data and the original works)
 
@@ -150,7 +204,7 @@ Directory structure and files
       * table1.dat
       * table2.dat
 
-* 0_data_step_0 (incremento respecto de la versión anterior, con el fichero de datos estándar ‘data.csv’)
+* 0_data_step_0 (incremented version from previous one, with a ‘data.csv’ standard file)
 
   * AA_661_A118
 
@@ -158,7 +212,7 @@ Directory structure and files
     * data.csv
     * source
 
-      * <igual que en 0_data_clean_all/AA_661_A118/source>
+      * <same as 0_data_clean_all/AA_661_A118/source>
 
   * AA_618_A59
 
@@ -166,7 +220,7 @@ Directory structure and files
     * data.csv
     * source
 
-      * <igual que en 0_data_clean_all/AA_618_A59/source>
+      * <same as 0_data_clean_all/AA_618_A59/source>
 
   * AA_635_A45
 
@@ -174,9 +228,9 @@ Directory structure and files
     * data.csv
     * source
 
-      * <igual que en 0_data_clean_all/AA_635_A45/source>
+      * <same as 0_data_clean_all/AA_635_A45/source>
 
-* 0_data_step_1 (incremento respecto de la versión anterior con los ficheros de datos del archivo Gaia de la Agencia Espacial Europea)
+* 0_data_step_1 (incremented version from the previous one, with data files from European Space Agency Gaia Archive)
 
   * AA_661_A118
 
@@ -184,11 +238,11 @@ Directory structure and files
     * data.csv
     * source
 
-      * <igual que en 0_data_clean_all/AA_661_A118/source>
+      * <same as 0_data_clean_all/AA_661_A118/source>
 
     * output
 
-      * <datos del archivo Gaia de la ESA>
+      * <data files from ESA Gaia Archive>
 
   * AA_618_A59
 
@@ -196,11 +250,11 @@ Directory structure and files
     * data.csv
     * source
 
-      * <igual que en 0_data_clean_all/AA_618_A59/source>
+      * <same as 0_data_clean_all/AA_618_A59/source>
 
     * output
 
-      * <datos del archivo Gaia de la ESA>
+      * <data files from ESA Gaia Archive>
 
   * AA_635_A45
 
@@ -208,13 +262,13 @@ Directory structure and files
     * data.csv
     * source
 
-      * <igual que en 0_data_clean_all/AA_635_A45/source>
+      * <same as 0_data_clean_all/AA_635_A45/source>
 
     * output
 
-      * <datos del archivo Gaia de la ESA>
+      * <data files from ESA Gaia Archive>
 
-* 0_data_step_2_without_classify (incremento respecto a la versión anterior con los ficheros de muestras)
+* 0_data_step_2_without_classify (incremented version from the previous one, with sampling files)
 
   * AA_661_A118
 
@@ -222,12 +276,12 @@ Directory structure and files
     * data.csv
     * source
 
-      * <igual que en 0_data_clean_all/AA_661_A118/source>
+      * <same as 0_data_clean_all/AA_661_A118/source>
 
     * output
 
-      * <datos del archivo Gaia de la ESA>
-      * <contiene los ficheros de muestras>
+      * <data files from ESA Gaia Archive>
+      * <sampling files>
 
   * AA_618_A59
 
@@ -235,12 +289,12 @@ Directory structure and files
     * data.csv
     * source
 
-      * <igual que en 0_data_clean_all/AA_618_A59/source>
+      * <same as 0_data_clean_all/AA_618_A59/source>
 
     * output
 
-      * <datos del archivo Gaia de la ESA>
-      * <contiene los ficheros de muestras>
+      * <data files from ESA Gaia Archive>
+      * <sampling files>
 
   * AA_635_A45
 
@@ -248,14 +302,14 @@ Directory structure and files
     * data.csv
     * source
 
-      * <igual que en 0_data_clean_all/AA_635_A45/source>
+      * <same as 0_data_clean_all/AA_635_A45/source>
 
     * output
 
-      * <datos del archivo Gaia de la ESA>
-      * <contiene los ficheros de muestras>
+      * <data files from ESA Gaia Archive>
+      * <sampling files>
 
-* 0_properties_base (contiene las propiedades básicas)
+* 0_properties_base (basic properties)
 
   * AA_661_A118
 
@@ -269,105 +323,112 @@ Directory structure and files
 
     * config.properties
 
-* test_1 (directorio de resultados del primer test)
+* scripts
 
-  * <ver estructura más abajo>
+  * launcher.py (utility to process all clusters with all algorithms, generates metrics too)
+  * main.py (main entry)
+  * processor.py (executes required tasks, e.g., download data, sampling, run algorithms...)
+  * utils.py (common utilities)
 
-* test_2 (directorio de resultados del segundo test)
+* README.rst (this file)
 
-  * <ver estructura más abajo>
+* clone_directory.py (copies all files from source directory to destination one)
 
-* test_3 (directorio de resultados del tercer test)
+* copy_properties.py (copies basic properties to the specified directory)
 
-  * <ver estructura más abajo>
-
-* clone_directory.py (realiza una copia de un directorio y sus contenidos a otro)
-
-* copy_properties.py (copia las propiedades básicas al directorio especificado)
-
-* copy_sampling.py (copi las muestras de un directorio a otro)
-
-* launcher.py (utilidad para procesar todos los clústeres con todos los algoritmos)
-
-* main.py (entrada principal)
-
-* processor.py (ejecuta las tareas requeridas, por ejemplo, descargar datos, hacer muestreo, lanzar los algoritmos de clustering...)
-
-* README.rst (fichero con explicaciones)
-
-* utils.py (utilidades genéricas)
+* copy_sampling.py (copies already sampling files to the specified directory)
 
 
-Cada directorio de test contiene la siguiente estructura:
+working directory
+-----------------
 
-* test_n
+Each working directory is created by using ``clone_directory.py`` script.
+You must specify destination directory as an argument, we name that directory as ``working_directory``
+(in previous examples, we have used ``clusters_work``)
 
-  * AA_661_A118
+* working_dir
 
-    * config.properties
-    * data.csv
-    * source
+  * test_n
 
-      * <igual que en 0_data_clean_all/AA_661_A118/source>
+    * AA_661_A118
 
-    * output
+      * config.properties
+      * data.csv
+      * source
 
-      * <datos del archivo Gaia de la ESA>
-      * <contiene los ficheros de muestras>
-      * report_nnnn (resultado de la ejecución nnnn)
+        * <same as 0_data_clean_all/AA_661_A118/source>
 
-        * <ver contenido más abajo>
+      * output
 
-  * AA_618_A59
+        * <data files from ESA Gaia Archive>
+        * <sampling files>
+        * report_nnnn (run nnnn results)
 
-    * config.properties
-    * data.csv
-    * source
+          * <see content below>
 
-      * <igual que en 0_data_clean_all/AA_618_A59/source>
+    * AA_618_A59
 
-    * output
+      * config.properties
+      * data.csv
+      * source
 
-      * <datos del archivo Gaia de la ESA>
-      * <contiene los ficheros de muestras>
-      * report_nnnn (resultado de la ejecución nnnn)
+        * <same as 0_data_clean_all/AA_618_A59/source>
 
-        * <ver contenido más abajo>
+      * output
 
-  * AA_635_A45
+        * <data files from ESA Gaia Archive>
+        * <sampling files>
+        * report_nnnn (run nnnn results)
 
-    * config.properties
-    * data.csv
-    * source
+          * <see content below>
 
-      * <igual que en 0_data_clean_all/AA_635_A45/source>
+    * AA_635_A45
 
-    * output
+      * config.properties
+      * data.csv
+      * source
 
-      * <datos del archivo Gaia de la ESA>
-      * <contiene los ficheros de muestras>
-      * report_nnnn (resultado de la ejecución nnnn)
+        * <same as 0_data_clean_all/AA_635_A45/source>
 
-        * <ver contenido más abajo>
+      * output
 
-Cada directorio report_nnnn contiene la siguiente estructura:
+        * <data files from ESA Gaia Archive>
+        * <sampling files>
+        * report_nnnn (run nnnn results)
 
-* report_nnnn (resultado de la ejecución nnnn)
+          * <see content below>
 
-  * main_metrics.csv (métricas en formato CSV)
-  * main_metrics.html (métricas en formato HTML con hiperenlaces)
-  * main_metrics_plot.png (métricas en imagen)
-  * main_metrics_new_plot.png (métricas de nuevos elementos en imagen)
-  * main_metrics_new_plus_plot.png (métricas de nuevos elementos en rango en imagen)
-  * main_report_nnnn (fichero en texto plano con el resultado de la ejecución nnnn)
-  * <cluster>_<algoritmo>_xxxx (directorio con los datos por cluster y algoritmo)
+Report directory
+----------------
 
-    * Informe en HTML
-    * Informe en texto plano
-    * Conjunto de imágenes
+report_nnnn directory structure:
+
+* report_nnnn (run nnnn results)
+
+  * cluster_id.txt (cluster identifier)
+  * hyper_params.txt (algorithms hyper parameters used)
+  * main_metrics.csv (metrics in CSV)
+  * main_metrics.html (metrics in HTML with hyperlinks)
+  * main_metrics_plot.png (metrics images)
+  * main_metrics_new_plot.png (new sources metrics images)
+  * main_metrics_new_plus_plot.png (new in range sources metrics images)
+  * main_report_nnnn (run nnnn log plain text file)
+  * <cluster>_<algorithm>_xxxx (data directory per cluster and algorithm)
+
+    * Report in HTML
+    * Report in plain text
+    * Images set
 
 
+Main Metrics Reports
+--------------------
 
+After ``launcher.py`` is executed, a metrics summary is generated in a directory named ``main_metrics_report_<DateTime>``
 
+main_metrics_report_<DateTime> directory structure
 
+* main_metrics_report_<DateTime> (run <DateTime> metrics summary)
+
+  * metrics_summary.html (HTML document with hyperlinks)
+  * metrics_summary_<algorithm>_<type>.png (summary per algorithm and type)
 
