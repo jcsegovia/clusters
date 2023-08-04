@@ -47,10 +47,12 @@ for work_dir in DIRECTORIES:
             path = f'{work_dir}/{report_dir}'
             # cluster
             cluster_id = Utils.read_file_by_lines(f'{path}/cluster_id.txt')
-            clusters_all.append(cluster_id)
+            if cluster_id not in clusters_all:
+                clusters_all.append(cluster_id)
             # hyperparams
             hyper_params = Utils.read_file_by_lines(f'{path}/hyper_params.txt')
-            hyper_params_all.append(hyper_params)
+            if hyper_params not in hyper_params_all:
+                hyper_params_all.append(hyper_params)
             # dataframe
             csv_data = f'{path}/main_metrics.csv'
             df = pd.read_csv(csv_data)

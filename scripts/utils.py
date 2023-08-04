@@ -488,10 +488,12 @@ class Utils:
             html.write("<body>\n")
             html.write('<h2>Cluster IDs</h2>')
             for cluster in clusters_all:
-                html.write(f"{''.join(cluster)}")
+                html.write(f"{'<br/>'.join(cluster)}")
+                html.write('<br/>\n')
             html.write('<h2>Hyper-params</h2>')
             for hyper_params in hyper_params_all:
-                html.write(f"{''.join(hyper_params)}")
+                html.write(f"{'<br/>'.join(hyper_params)}")
+                html.write('<br/>\n')
             html.write(f'<h2>New sources (100% original sources found)</h2>\n')
             for file in new_files:
                 html.write(f'<img src="{Utils.get_html_relative_root(file)}"></br>\n')
