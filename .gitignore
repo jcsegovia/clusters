@@ -8,6 +8,7 @@ auth.header
 /src/main/resources/config/sql/local_properties.sql
 nohup.out
 pom.xml.versionsBackup
+.idea
 
 ######################
 # Node
