@@ -2,6 +2,8 @@ import os
 import sys
 
 SCRIPT = './main.py'
+METRICS_SCRIPT = './metrics_summary.py'
+
 
 def print_help():
     print(f'Wrong numer of arguments.')
@@ -44,8 +46,9 @@ for arg in EXEC_CLASSIFY:
 # Launch metrics
 print('Metrics summary')
 sys.argv.clear()
-sys.argv.append('metrics_summary.py')
+sys.argv.append(METRICS_SCRIPT)
 sys.argv.append(DIRECTORY)
-
+with open(METRICS_SCRIPT) as f:
+    exec(f.read())
 
 print('Done')
