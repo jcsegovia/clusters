@@ -62,4 +62,7 @@ if include_scripts:
             print(f'Copying ./scripts/{script} -> {DST_DIR}')
             shutil.copy(f'./scripts/{script}', DST_DIR)
 
+# Always copy license file
+shutil.copy('./license.txt', DST_DIR)
+
 print('Done.')
