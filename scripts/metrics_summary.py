@@ -20,9 +20,6 @@ DIRECTORY = sys.argv[1]
 if not os.path.exists(DIRECTORY):
     raise ValueError(f"Not found source directory {DIRECTORY}")
 
-INPUT_REPORTS_FILE
-if len(sys.argv) > 1:
-
 DIRECTORIES = [
     f'./{DIRECTORY}/AA_618_A59/output',
     f'./{DIRECTORY}/AA_635_A45/output',
@@ -40,34 +37,31 @@ report_dir = 'main_metrics_report_' + date_formatted
 subdir = f'{MAIN_METRICS_REPORT_DIR}/{report_dir}'
 os.mkdir(subdir)
 
+# create output reports file
+now_report = datetime.datetime.now()
+date_formatted_report = now_report.strftime("%Y%m%dT%H%M%S")
+OUTPUT_REPORTS_FILE = f'{subdir}/input_reports_{date_formatted_report}'
+
 df_all = {}
 clusters_all = []
 hyper_params_all = []
-for work_dir in DIRECTORIES:
-    report_directories = os.listdir(work_dir)
-    for report_dir in report_directories:
-        if report_dir.startswith('report_'):
-            path = f'{work_dir}/{report_dir}'
-            # cluster
-            cluster_id = Utils.read_file_by_lines(f'{path}/cluster_id.txt')
-            if cluster_id not in clusters_all:
-                clusters_all.append(cluster_id)
-            # hyperparams
-            hyper_params = Utils.read_file_by_lines(f'{path}/hyper_params.txt')
-            if hyper_params not in hyper_params_all:
-                hyper_params_all.append(hyper_params)
-            # dataframe
-            csv_data = f'{path}/main_metrics.csv'
-            df = pd.read_csv(csv_data)
-            df['cluster'] = df['cluster'].apply(lambda x: x+1)
-            df_data = {}
-            df_data['src'] = df
-            df_found = df[df['sources'] == df['found_count']]
-            df_data['found'] = df_found
-            df_data['new'] = df_found.groupby(by=['model','inc_percent'])[['new_count','cluster','silhouette']].max().reset_index()
-            df_data['new_plus'] = df_found.groupby(by=['model','inc_percent'])[['new_in_range_count','cluster','silhouette']].max().reset_index()
-            df_all[str(path)] = df_data
-            print(report_dir, path)
+
+with open(OUTPUT_REPORTS_FILE, 'w') as output_report_file_handler:
+    if len(sys.argv) > 2:
+        input_reports_file = sys.argv[2]
+        if not os.path.exists(input_reports_file):
+            raise ValueError(f'Not found input reports file: {input_reports_file}')
+        # read lines -> report for input
+        reports = Utils.read_file_by_lines(input_reports_file)
+        for path in reports:
+            Utils.add_report_for_metrics(path, df_all, clusters_all, hyper_params_all)
+    else:
+        for work_dir in DIRECTORIES:
+            report_directories = os.listdir(work_dir)
+            for report_dir in report_directories:
+                if report_dir.startswith('report_'):
+                    path = f'{work_dir}/{report_dir}'
+                    Utils.add_report_for_metrics(path, df_all, clusters_all, hyper_params_all)
 
 new_files, new_plus_files = Utils.generate_metrics_summary(df_all, subdir)
 Utils.generate_metrics_summary_html(subdir, new_files, new_plus_files, clusters_all, hyper_params_all)

@@ -1,5 +1,6 @@
 import os
 import sys
+import datetime
 from utils import Utils
 
 
@@ -37,6 +38,12 @@ EXEC_CLASSIFY = [
     f'-dir={DIRECTORY}/AA_661_A118 -task=classify -cluster=UBC1565 -model={MODEL}'
 ]
 
+
+now = datetime.datetime.now()
+date_formatted = now.strftime("%Y%m%dT%H%M%S")
+metrics_file_tmp = f'./metrics_file_{date_formatted}'
+metrics_file_arg = f'-metrics_file={metrics_file_tmp}'
+
 extra_args = []
 for i in range(2, len(sys.argv)):
     extra_args.append(sys.argv[i])
@@ -57,6 +64,7 @@ for arg in EXEC_CLASSIFY:
     sys.argv.append(SCRIPT)
     for i in items:
         sys.argv.append(i)
+    sys.argv.append(metrics_file_arg)
     with open(SCRIPT) as f:
         exec(f.read())
 
@@ -65,7 +73,11 @@ print('Metrics summary')
 sys.argv.clear()
 sys.argv.append(METRICS_SCRIPT)
 sys.argv.append(DIRECTORY)
+sys.argv.append(metrics_file_tmp)
 with open(METRICS_SCRIPT) as f:
     exec(f.read())
+
+
+os.remove(metrics_file_tmp)
 
 print('Done')

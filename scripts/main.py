@@ -120,4 +120,12 @@ with open(main_report_file, 'w') as main_report:
     if TASK_CLASSIFY in all_tasks:
         processor.classify(cluster, MODEL_ARG)
 
+
+METRICS_FILE = Utils.get_argument_value(sys.argv, '-metrics_file=')
+if METRICS_FILE is not None:
+    with open(METRICS_FILE, 'a') as metrics_file:
+        metrics_file.write(f'{subdir}\n')
+        print(f'Added {subdir} to metrics file {METRICS_FILE}')
+
+
 print(f'\nDone: {subdir}')

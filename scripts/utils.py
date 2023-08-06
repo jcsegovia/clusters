@@ -152,7 +152,7 @@ class Utils:
     @staticmethod
     def read_file_by_lines(input_file):
         with open(input_file, 'r') as file:
-            return file.readlines()
+            return file.read().splitlines()
 
     @staticmethod
     def generate_sources_for_query(sources_as_serie):
@@ -850,3 +850,29 @@ class Utils:
                 kv = item.split('=')
                 params[kv[0].strip()] = kv[1].strip()
         return params
+
+    @staticmethod
+    def add_report_for_metrics(path, df_all, clusters_all,hyper_params_all):
+        # cluster
+        cluster_id = Utils.read_file_by_lines(f'{path}/cluster_id.txt')
+        if cluster_id not in clusters_all:
+            clusters_all.append(cluster_id)
+        # hyperparams
+        hyper_params = Utils.read_file_by_lines(f'{path}/hyper_params.txt')
+        if hyper_params not in hyper_params_all:
+            hyper_params_all.append(hyper_params)
+        # dataframe
+        csv_data = f'{path}/main_metrics.csv'
+        df = pd.read_csv(csv_data)
+        df['cluster'] = df['cluster'].apply(lambda x: x + 1)
+        df_data = {}
+        df_data['src'] = df
+        df_found = df[df['sources'] == df['found_count']]
+        df_data['found'] = df_found
+        df_data['new'] = df_found.groupby(by=['model', 'inc_percent'])[
+            ['new_count', 'cluster', 'silhouette']].max().reset_index()
+        df_data['new_plus'] = df_found.groupby(by=['model', 'inc_percent'])[
+            ['new_in_range_count', 'cluster', 'silhouette']].max().reset_index()
+        df_all[str(path)] = df_data
+        print(path)
+        pass
