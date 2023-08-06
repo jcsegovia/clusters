@@ -8,7 +8,7 @@ Quick Start
     python clone_directory.py <src_dir> <dst_dir> <run_dir_name>
 
     E.g. (warm start, using already sampled files without classification)
-    python clone_directory.py 0_data_step_2_withtout_classify ../clusters_run test_1
+    python clone_directory.py data_step_2_withtout_classify ../clusters_run test_1
 
 
 2. Change directory to the run one
@@ -92,10 +92,10 @@ Cold Start
 
 .. code-block:: bash
 
-    python clone_directory.py 0_data_clean_all <dst_dir> <run_dir_name>
+    python clone_directory.py data_clean_all <dst_dir> <run_dir_name>
 
     E.g.
-    python clone_directory.py 0_data_clean_all ./clusters_work test_1
+    python clone_directory.py data_clean_all ./clusters_work test_1
 
 Destination directories will be created
 
@@ -109,7 +109,7 @@ Destination directories will be created
     E.g.
     python copy_properties.py ../clusters_work/test_1
 
-Copy properties from ``0_properties_base`` into ``../clusters_work/test_1``
+Copy properties from ``properties_base`` into ``../clusters_work/test_1``
 
 Update properties if required (properties can be passed by command line too)
 
@@ -172,7 +172,7 @@ Directory structure and files
 cluster directory
 -----------------
 
-* 0_data_clean_all (directory containing Vizier archive data and the original works)
+* data_clean_all (directory containing Vizier archive data and the original works)
 
   * AA_661_A118
 
@@ -204,7 +204,7 @@ cluster directory
       * table1.dat
       * table2.dat
 
-* 0_data_step_0 (incremented version from previous one, with a ‘data.csv’ standard file)
+* data_step_0 (incremented version from previous one, with a ‘data.csv’ standard file)
 
   * AA_661_A118
 
@@ -212,7 +212,7 @@ cluster directory
     * data.csv
     * source
 
-      * <same as 0_data_clean_all/AA_661_A118/source>
+      * <same as data_clean_all/AA_661_A118/source>
 
   * AA_618_A59
 
@@ -220,7 +220,7 @@ cluster directory
     * data.csv
     * source
 
-      * <same as 0_data_clean_all/AA_618_A59/source>
+      * <same as data_clean_all/AA_618_A59/source>
 
   * AA_635_A45
 
@@ -228,9 +228,9 @@ cluster directory
     * data.csv
     * source
 
-      * <same as 0_data_clean_all/AA_635_A45/source>
+      * <same as data_clean_all/AA_635_A45/source>
 
-* 0_data_step_1 (incremented version from the previous one, with data files from European Space Agency Gaia Archive)
+* data_step_1 (incremented version from the previous one, with data files from European Space Agency Gaia Archive)
 
   * AA_661_A118
 
@@ -238,7 +238,7 @@ cluster directory
     * data.csv
     * source
 
-      * <same as 0_data_clean_all/AA_661_A118/source>
+      * <same as data_clean_all/AA_661_A118/source>
 
     * output
 
@@ -250,7 +250,7 @@ cluster directory
     * data.csv
     * source
 
-      * <same as 0_data_clean_all/AA_618_A59/source>
+      * <same as data_clean_all/AA_618_A59/source>
 
     * output
 
@@ -262,13 +262,13 @@ cluster directory
     * data.csv
     * source
 
-      * <same as 0_data_clean_all/AA_635_A45/source>
+      * <same as data_clean_all/AA_635_A45/source>
 
     * output
 
       * <data files from ESA Gaia Archive>
 
-* 0_data_step_2_without_classify (incremented version from the previous one, with sampling files)
+* data_step_2_without_classify (incremented version from the previous one, with sampling files)
 
   * AA_661_A118
 
@@ -276,7 +276,7 @@ cluster directory
     * data.csv
     * source
 
-      * <same as 0_data_clean_all/AA_661_A118/source>
+      * <same as data_clean_all/AA_661_A118/source>
 
     * output
 
@@ -289,7 +289,7 @@ cluster directory
     * data.csv
     * source
 
-      * <same as 0_data_clean_all/AA_618_A59/source>
+      * <same as data_clean_all/AA_618_A59/source>
 
     * output
 
@@ -302,14 +302,14 @@ cluster directory
     * data.csv
     * source
 
-      * <same as 0_data_clean_all/AA_635_A45/source>
+      * <same as data_clean_all/AA_635_A45/source>
 
     * output
 
       * <data files from ESA Gaia Archive>
       * <sampling files>
 
-* 0_properties_base (basic properties)
+* properties_base (basic properties)
 
   * AA_661_A118
 
@@ -356,7 +356,7 @@ You must specify destination directory as an argument, we name that directory as
       * data.csv
       * source
 
-        * <same as 0_data_clean_all/AA_661_A118/source>
+        * <same as data_clean_all/AA_661_A118/source>
 
       * output
 
@@ -372,7 +372,7 @@ You must specify destination directory as an argument, we name that directory as
       * data.csv
       * source
 
-        * <same as 0_data_clean_all/AA_618_A59/source>
+        * <same as data_clean_all/AA_618_A59/source>
 
       * output
 
@@ -388,7 +388,7 @@ You must specify destination directory as an argument, we name that directory as
       * data.csv
       * source
 
-        * <same as 0_data_clean_all/AA_635_A45/source>
+        * <same as data_clean_all/AA_635_A45/source>
 
       * output
 
