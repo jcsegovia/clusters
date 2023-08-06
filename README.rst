@@ -209,7 +209,7 @@ cluster directory
   * AA_661_A118
 
     * config.properties
-    * data.csv
+    * **data.csv**
     * source
 
       * <same as data_clean_all/AA_661_A118/source>
@@ -217,7 +217,7 @@ cluster directory
   * AA_618_A59
 
     * config.properties
-    * data.csv
+    * **data.csv**
     * source
 
       * <same as data_clean_all/AA_618_A59/source>
@@ -225,7 +225,7 @@ cluster directory
   * AA_635_A45
 
     * config.properties
-    * data.csv
+    * **data.csv**
     * source
 
       * <same as data_clean_all/AA_635_A45/source>
@@ -242,7 +242,7 @@ cluster directory
 
     * output
 
-      * <data files from ESA Gaia Archive>
+      * **<data files from ESA Gaia Archive>**
 
   * AA_618_A59
 
@@ -254,7 +254,7 @@ cluster directory
 
     * output
 
-      * <data files from ESA Gaia Archive>
+      * **<data files from ESA Gaia Archive>**
 
   * AA_635_A45
 
@@ -262,7 +262,7 @@ cluster directory
     * data.csv
     * source
 
-      * <same as data_clean_all/AA_635_A45/source>
+      * **<same as data_clean_all/AA_635_A45/source>**
 
     * output
 
@@ -281,7 +281,7 @@ cluster directory
     * output
 
       * <data files from ESA Gaia Archive>
-      * <sampling files>
+      * **<sampling files>**
 
   * AA_618_A59
 
@@ -294,7 +294,7 @@ cluster directory
     * output
 
       * <data files from ESA Gaia Archive>
-      * <sampling files>
+      * **<sampling files>**
 
   * AA_635_A45
 
@@ -307,7 +307,7 @@ cluster directory
     * output
 
       * <data files from ESA Gaia Archive>
-      * <sampling files>
+      * **<sampling files>**
 
 * properties_base (basic properties)
 
