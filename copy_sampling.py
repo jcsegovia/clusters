@@ -5,7 +5,7 @@ import shutil
 def print_help():
     print(f'Wrong numer of arguments.')
     print(f'Expected: python copy_sampling.py <src_dir> <dst_dir>')
-    print(f'\t e.g: python copy_sampling.py 0_data_step_2_withtout_classify 0_run_1')
+    print(f'\t e.g: python copy_sampling.py data_step_2_without_classify ../runs_directory/test_1')
 
 
 if len(sys.argv) < 3:

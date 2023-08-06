@@ -8,7 +8,7 @@ BASE_PROPERTIES_DIR = './0_properties_base'
 def print_help():
     print(f'Wrong numer of arguments.')
     print(f'Expected: python copy_prperties.py <dst_dir>')
-    print(f'\t e.g: python copy_properties.py 0_run_1')
+    print(f'\t e.g: python copy_properties.py test_1')
 
 
 if len(sys.argv) < 2:

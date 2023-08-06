@@ -6,8 +6,8 @@ def print_help():
     print(f'Wrong numer of arguments.')
     print(f'Expected: python clone_directory.py <src_dir> <dst_dir> [-noscripts]')
     print(f'Or      : python clone_directory.py <dst_dir> -onlyscripts')
-    print(f'\t e.g: python clone_directory.py 0_data_step_2_withtout_classify ./ test_1')
-    print(f'\t e.g: python clone_directory.py 0_data_step_2_withtout_classify ../runs_directory test_1')
+    print(f'\t e.g: python clone_directory.py data_step_2_withtout_classify ./ test_1')
+    print(f'\t e.g: python clone_directory.py data_step_2_withtout_classify ../runs_directory test_1')
     print(f'\t e.g: python clone_directory.py ../runs_directory -onlyscripts')
 
 
