@@ -41,7 +41,7 @@ EXEC_CLASSIFY = [
 
 now = datetime.datetime.now()
 date_formatted = now.strftime("%Y%m%dT%H%M%S")
-metrics_file_tmp = f'./metrics_file_{date_formatted}'
+metrics_file_tmp = f'./metrics_file_{date_formatted}.tmp'
 metrics_file_arg = f'-metrics_file={metrics_file_tmp}'
 
 extra_args = []
