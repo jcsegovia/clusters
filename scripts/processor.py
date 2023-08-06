@@ -344,6 +344,8 @@ class Processor:
         metrics_plot_file = self.main_subdir + '/main_metrics_plot.png'
         metrics_new_plot_file = self.main_subdir + '/main_metrics_new_plot.png'
         metrics_new_plus_plot_file = self.main_subdir + '/main_metrics_new_plus_plot.png'
+        hyper_params_file = self.main_subdir + '/hyper_params.txt'
+        cluster_output_file = self.main_subdir + '/cluster_id.txt'
         if 'all_models' == model:
             metrics_dbscan, output_files_dbscan, subdir_dbscan, html_report_dbscan, model_params_dbscan = self.classify_single_model(cluster, 'DBSCAN')
             metrics_optics, output_files_optics, subdir_optics, html_report_optics, model_params_optics = self.classify_single_model(cluster, 'OPTICS')
@@ -368,6 +370,8 @@ class Processor:
                                         [html_report_dbscan, html_report_optics, html_report_meanshift],
                                         [model_params_dbscan, model_params_optics, model_params_meanshift],
                                         metrics_plot_file, metrics_new_plot_file, metrics_new_plus_plot_file)
+            Utils.generate_hyper_params(hyper_params_file, ['DBSCAN', 'OPTICS', 'MeanShift'],
+                                        [model_params_dbscan, model_params_optics, model_params_meanshift])
         else:
             metrics, output_files, subdir, html_report, model_params = self.classify_single_model(cluster, model)
             Utils.log_msg(self.main_report, f'Metrics:')
@@ -381,4 +385,8 @@ class Processor:
             Utils.generate_metrics_html(metrics_html_file, [metrics], [output_files], [subdir], [html_report],
                                         [model_params], metrics_plot_file, metrics_new_plot_file,
                                         metrics_new_plus_plot_file)
+            Utils.generate_hyper_params(hyper_params_file, [model], [model_params])
+        with open(cluster_output_file, "w") as cluster_file:
+            cluster_file.write(f'Cluster: {cluster}\n')
+        pass
 

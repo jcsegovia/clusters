@@ -131,6 +131,11 @@ class Utils:
         return colspecs
 
     @staticmethod
+    def read_file_by_lines(input_file):
+        with open(input_file, 'r') as file:
+            return file.readlines()
+
+    @staticmethod
     def generate_sources_for_query(sources_as_serie):
         sources_ids = ""
         for i in range(len(sources_as_serie)):
@@ -431,6 +436,8 @@ class Utils:
     @staticmethod
     def plot_main_metrics(model_index, df_all, type, type_column, type_title, main_metrics_summary_file):
         num_runs = len(df_all)
+        if num_runs < 3:
+            return
         fig, axis = plt.subplots(int(num_runs/3) * 2, 3, figsize=(10, 12))
         col_index = 0
         row_index = 0
@@ -469,7 +476,7 @@ class Utils:
         return new_files, new_plus_files
 
     @staticmethod
-    def generate_metrics_summary_html(subdir, new_files, new_plus_files):
+    def generate_metrics_summary_html(subdir, new_files, new_plus_files, clusters_all, hyper_params_all):
         html_output_file = f'{subdir}/metrics_summary.html'
         with open(html_output_file, "w") as html:
             html.write("<html>\n")
@@ -479,6 +486,14 @@ class Utils:
             html.write("</style>\n")
             html.write("</head>\n")
             html.write("<body>\n")
+            html.write('<h2>Cluster IDs</h2>')
+            for cluster in clusters_all:
+                html.write(f"{'<br/>'.join(cluster)}")
+                html.write('<br/>\n')
+            html.write('<h2>Hyper-params</h2>')
+            for hyper_params in hyper_params_all:
+                html.write(f"{'<br/>'.join(hyper_params)}")
+                html.write('<br/>\n')
             html.write(f'<h2>New sources (100% original sources found)</h2>\n')
             for file in new_files:
                 html.write(f'<img src="{Utils.get_html_relative_root(file)}"></br>\n')
@@ -719,6 +734,13 @@ class Utils:
             html.write(f'<br/><img src="{Utils.get_html_relative_root(metrics_new_plus_plot_file)}"><br/>')
             html.write("</body>\n")
             html.write("</html>\n")
+        pass
+
+    @staticmethod
+    def generate_hyper_params(output_file, model_names, hyper_params):
+        with open(output_file, "w") as hyper_params_file:
+            for i in range(len(model_names)):
+                hyper_params_file.write(f'{model_names[i]}: {hyper_params[i]}\n')
         pass
 
     @staticmethod

@@ -2,11 +2,13 @@ import os
 import sys
 
 SCRIPT = './main.py'
+METRICS_SCRIPT = './metrics_summary.py'
+
 
 def print_help():
     print(f'Wrong numer of arguments.')
     print(f'Expected: python launcher.py <directory>')
-    print(f'\t e.g: python launcher.py ./0_run_1')
+    print(f'\t e.g: python launcher.py ./test_1')
 
 
 if len(sys.argv) < 2:
@@ -40,5 +42,13 @@ for arg in EXEC_CLASSIFY:
         sys.argv.append(i)
     with open(SCRIPT) as f:
         exec(f.read())
+
+# Launch metrics
+print('Metrics summary')
+sys.argv.clear()
+sys.argv.append(METRICS_SCRIPT)
+sys.argv.append(DIRECTORY)
+with open(METRICS_SCRIPT) as f:
+    exec(f.read())
 
 print('Done')
