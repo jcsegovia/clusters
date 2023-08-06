@@ -121,6 +121,25 @@ class Utils:
             return f'./{path}'
 
     @staticmethod
+    def create_dictionary_from_args(arguments):
+        items = arguments.split(' ')
+        dictionary = {}
+        for item in items:
+            p = item.find('=')
+            if p >= 0:
+                dictionary[item[0:p]] = item[p+1:]
+        return dictionary
+
+    @staticmethod
+    def overwrite_dictionary(dictionary, argument):
+        p = argument.find('=')
+        if p >= 0:
+            key = argument[0:p]
+            value = argument[p+1:]
+            dictionary[key] = value
+        return dictionary
+
+    @staticmethod
     def get_col_specs(colspecs_arg):
         colspecs = []
         items = colspecs_arg.split(';')

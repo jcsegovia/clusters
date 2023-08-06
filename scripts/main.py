@@ -33,7 +33,7 @@ def print_help():
     print(f'\t eg.: python main.py -dir=./test_1/AA_618_A59 -task=classify -cluster=UBC17_a -model=dbscan (classify with DBSCAN)')
     print(f'\t eg.: python main.py -dir=./test_1/AA_618_A59 -task=classify -cluster=UBC17_a -model=all_models (classify with dbscan, optics and MeanShift)')
     print(f'\t eg.: python main.py -dir=./test_1/AA_618_A59 -task="sampling,classify" -cluster=UBC17_a -model=OPTICS -SAMPLES=300')
-    print(f'\t eg.: python main.py -dir=./test_1/AA_618_A59 -task=classify -cluster=UBC17_a -model=OPTICS -SAMPLES=300 -CLASSIFIER.OPTICS="min_cluster_size=0.5,xi=0.05"')
+    print(f'\t eg.: python main.py -dir=./test_1/AA_618_A59 -task=classify -cluster=UBC17_a -model=OPTICS -SAMPLES=300 "-CLASSIFIER.OPTICS=min_cluster_size=0.5,xi=0.05"')
 
 
 if len(sys.argv) < 3:
@@ -120,4 +120,4 @@ with open(main_report_file, 'w') as main_report:
     if TASK_CLASSIFY in all_tasks:
         processor.classify(cluster, MODEL_ARG)
 
-print('\nDone.')
+print(f'\nDone: {subdir}')

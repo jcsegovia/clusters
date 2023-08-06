@@ -7,7 +7,7 @@ from utils import Utils
 
 def print_help():
     print(f'Wrong numer of arguments.')
-    print(f'Expected: python launcher.py <directory>')
+    print(f'Expected: python launcher.py <directory> [<input_reports_file>]')
     print(f'\t e.g: python launcher.py ./test_1')
 
 
@@ -19,6 +19,9 @@ DIRECTORY = sys.argv[1]
 
 if not os.path.exists(DIRECTORY):
     raise ValueError(f"Not found source directory {DIRECTORY}")
+
+INPUT_REPORTS_FILE
+if len(sys.argv) > 1:
 
 DIRECTORIES = [
     f'./{DIRECTORY}/AA_618_A59/output',

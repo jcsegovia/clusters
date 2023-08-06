@@ -1,5 +1,7 @@
 import os
 import sys
+from utils import Utils
+
 
 SCRIPT = './main.py'
 METRICS_SCRIPT = './metrics_summary.py'
@@ -19,23 +21,38 @@ DIRECTORY = sys.argv[1]
 
 if not os.path.exists(DIRECTORY):
     raise ValueError(f"Not found source directory {DIRECTORY}")
+    pass
+
+MODEL='all'
 
 EXEC_CLASSIFY = [
-    f'-dir={DIRECTORY}/AA_618_A59 -task=classify -cluster=UBC8 -model=all',
-    f'-dir={DIRECTORY}/AA_618_A59 -task=classify -cluster=UBC17_a -model=all',
-    f'-dir={DIRECTORY}/AA_618_A59 -task=classify -cluster=UBC17_b -model=all',
-    f'-dir={DIRECTORY}/AA_635_A45 -task=classify -cluster=UBC106 -model=all',
-    f'-dir={DIRECTORY}/AA_635_A45 -task=classify -cluster=UBC186 -model=all',
-    f'-dir={DIRECTORY}/AA_635_A45 -task=classify -cluster=UBC570 -model=all',
-    f'-dir={DIRECTORY}/AA_661_A118 -task=classify -cluster=UBC1004 -model=all',
-    f'-dir={DIRECTORY}/AA_661_A118 -task=classify -cluster=UBC1015 -model=all',
-    f'-dir={DIRECTORY}/AA_661_A118 -task=classify -cluster=UBC1565 -model=all'
+    f'-dir={DIRECTORY}/AA_618_A59 -task=classify -cluster=UBC8 -model={MODEL}',
+    f'-dir={DIRECTORY}/AA_618_A59 -task=classify -cluster=UBC17_a -model={MODEL}',
+    f'-dir={DIRECTORY}/AA_618_A59 -task=classify -cluster=UBC17_b -model={MODEL}',
+    f'-dir={DIRECTORY}/AA_635_A45 -task=classify -cluster=UBC106 -model={MODEL}',
+    f'-dir={DIRECTORY}/AA_635_A45 -task=classify -cluster=UBC186 -model={MODEL}',
+    f'-dir={DIRECTORY}/AA_635_A45 -task=classify -cluster=UBC570 -model={MODEL}',
+    f'-dir={DIRECTORY}/AA_661_A118 -task=classify -cluster=UBC1004 -model={MODEL}',
+    f'-dir={DIRECTORY}/AA_661_A118 -task=classify -cluster=UBC1015 -model={MODEL}',
+    f'-dir={DIRECTORY}/AA_661_A118 -task=classify -cluster=UBC1565 -model={MODEL}'
 ]
 
+extra_args = []
+for i in range(2, len(sys.argv)):
+    extra_args.append(sys.argv[i])
 
 for arg in EXEC_CLASSIFY:
-    print (f'{arg}')
-    items = arg.split(' ')
+    # items = arg.split(' ')
+    # if len(extra_args) > 0:
+    #     for extra_arg in extra_args:
+    #         items.append(extra_arg)
+    items_dict = Utils.create_dictionary_from_args(arg)
+    for extra_arg in extra_args:
+        Utils.overwrite_dictionary(items_dict, extra_arg)
+    items = []
+    for k in items_dict.keys():
+        items.append(f'{k}={items_dict[k]}')
+    print(f'{items}')
     sys.argv.clear()
     sys.argv.append(SCRIPT)
     for i in items:
