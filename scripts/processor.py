@@ -209,7 +209,8 @@ class Processor:
             for key in params.keys():
                 # bandwidth: None, bin_seeding: False, cluster_all: True, max_iter: 300
                 if 'bandwidth' == key:
-                    pipeline.named_steps['classifier'].bandwidth = float(params[key])
+                    if not 'none' == str(params[key]).lower():
+                        pipeline.named_steps['classifier'].bandwidth = float(params[key])
                 elif 'bin_seeding' == key:
                     pipeline.named_steps['classifier'].bin_seeding = params[key]
                 elif 'cluster_all' == key:

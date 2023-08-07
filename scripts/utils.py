@@ -506,8 +506,11 @@ class Utils:
             html.write("</head>\n")
             html.write("<body>\n")
             html.write('<h2>Cluster IDs</h2>')
+            counter = 0
             for cluster in clusters_all:
-                html.write(f"{'<br/>'.join(cluster)}")
+                for cl_item in cluster:
+                    html.write(f"#{counter} {cl_item}<br/>")
+                    counter = counter + 1
                 html.write('<br/>\n')
             html.write('<h2>Hyper-params</h2>')
             for hyper_params in hyper_params_all:
