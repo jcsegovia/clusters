@@ -327,7 +327,7 @@ class Processor:
         elif 'OPTICS' == model.upper():
             pipeline = Pipeline([
                 ('scaler', StandardScaler()),
-                ('classifier', OPTICS(xi=0.05, min_cluster_size=0.5))
+                ('classifier', OPTICS(xi=0.05))
             ])
         elif 'MEANSHIFT' == model.upper():
             pipeline = Pipeline([
