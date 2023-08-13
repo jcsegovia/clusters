@@ -695,7 +695,7 @@ class Utils:
             html.write('<th>% Found</th>\n')
             html.write('<th># Missed</th>\n')
             html.write('<th># New</th>\n')
-            html.write('<th># New In Range</th>\n')
+            html.write('<th># New+</th>\n')
             html.write('<th># Noise</th>\n')
             html.write('<th>Plot</th>\n')
             html.write('</tr>\n')
