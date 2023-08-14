@@ -884,10 +884,14 @@ class Utils:
         df_data['src'] = df
         df_found = df[df['sources'] == df['found_count']]
         df_data['found'] = df_found
-        df_data['new'] = df_found.groupby(by=['model', 'inc_percent'])[
-            ['new_count', 'cluster', 'silhouette']].max().reset_index()
-        df_data['new_plus'] = df_found.groupby(by=['model', 'inc_percent'])[
-            ['new_in_range_count', 'cluster', 'silhouette']].max().reset_index()
+        # df_data['new'] = df_found.groupby(by=['model', 'inc_percent'])[
+        #     ['new_count', 'cluster', 'silhouette']].max().reset_index()
+        # df_data['new_plus'] = df_found.groupby(by=['model', 'inc_percent'])[
+        #     ['new_in_range_count', 'cluster', 'silhouette']].max().reset_index()
+        df_data['new'] = df_found.loc[df_found.groupby(by=['model', 'inc_percent'])["new_count"].idxmax()][
+            ['model', 'inc_percent', 'new_count', 'cluster', 'silhouette']]
+        df_data['new_plus'] = df_found.loc[df_found.groupby(by=['model', 'inc_percent'])["new_in_range_count"].idxmax()][
+            ['model', 'inc_percent', 'new_in_range_count', 'cluster', 'silhouette']]
         df_all[str(path)] = df_data
         print(path)
         pass
