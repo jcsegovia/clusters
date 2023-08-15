@@ -348,6 +348,12 @@ You must specify destination directory as an argument, we name that directory as
 
 * working_dir
 
+  * main_metrics_reports
+
+    * main_metrics_report_nnnn
+
+      * <see content below>
+
   * test_n
 
     * AA_661_A118
@@ -398,6 +404,22 @@ You must specify destination directory as an argument, we name that directory as
 
           * <see content below>
 
+Main metrics directory
+----------------------
+
+main_metrics_report_nnnn directory structure:
+
+* main_metrics_report_nnnn
+
+  * input_reports_nnnn (contains a list of the report directories used)
+  * metrics_summary.html (report in HTML with hyperlinks)
+  * metrics_summary_DBSCAN_new.png (DBSCAN for new items plot)
+  * metrics_summary_DBSCAN_new_plus.png (DBSCAN for new items in range plot)
+  * metrics_summary_MeanShift_new.png (MeanShift for new items plot)
+  * metrics_summary_MeanShift_new_plus.png (MeanShift for new items in range plot)
+  * metrics_summary_OPTICS_new.png (OPTICS for new items plot)
+  * metrics_summary_OPTICS_new_plus.png (OPTICS for new items in range plot)
+
 Report directory
 ----------------
 
@@ -418,17 +440,4 @@ report_nnnn directory structure:
     * Report in HTML
     * Report in plain text
     * Images set
-
-
-Main Metrics Reports
---------------------
-
-After ``launcher.py`` is executed, a metrics summary is generated in a directory named ``main_metrics_report_<DateTime>``
-
-main_metrics_report_<DateTime> directory structure
-
-* main_metrics_report_<DateTime> (run <DateTime> metrics summary)
-
-  * metrics_summary.html (HTML document with hyperlinks)
-  * metrics_summary_<algorithm>_<type>.png (summary per algorithm and type)
 
