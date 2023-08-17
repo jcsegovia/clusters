@@ -939,6 +939,28 @@ class Utils:
         fig.savefig(output_file)
 
     @staticmethod
+    def create_plot_counts_compact(counts, inc_percents_items, algorithms, colors, num_clusters, output_file):
+        xticks_pos = np.linspace(100, 500, len(inc_percents_items))
+        yticks_pos = np.linspace(1, num_clusters, num_clusters)
+        fig, axis = plt.subplots(figsize=(10, 5))
+        multiplier = 0
+        width = 20
+        for i in range(len(algorithms)):
+            offset = width * multiplier
+            axis.bar(xticks_pos + offset, counts[algorithms[i]].values(), width=width, label=algorithms[i],
+                     color=colors[i])
+            multiplier = multiplier + 1
+        axis.set_xticks(xticks_pos + width)
+        axis.set_xticklabels(inc_percents_items)
+        axis.set_yticks(yticks_pos)
+        axis.legend()
+        axis.set_ylabel('Num clusters')
+        axis.set_xlabel('% incremented sources')
+        axis.set_title(f'100% found sources per clusters')
+        # plt.show()
+        fig.savefig(output_file)
+
+    @staticmethod
     def update_unique_for_counts(inc_percents_items, unique_incs):
         for item in unique_incs:
             if item not in inc_percents_items:
@@ -957,7 +979,7 @@ class Utils:
         for item in df_all.keys():
             df_found = df_all[item]['found']
             Utils.update_counts(counts, inc_percents_items, ALGORITHM_MODELS, df_found)
-        Utils.create_plot_counts(counts, inc_percents_items, ALGORITHM_MODELS, ALGORITHM_COLORS, len(df_all),
+        Utils.create_plot_counts_compact(counts, inc_percents_items, ALGORITHM_MODELS, ALGORITHM_COLORS, len(df_all),
                                  count_output_file)
         print(f'Generated: {count_output_file}')
         return count_output_file
