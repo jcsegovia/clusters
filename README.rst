@@ -419,6 +419,7 @@ main_metrics_report_nnnn directory structure:
   * metrics_summary_MeanShift_new_plus.png (MeanShift for new items in range plot)
   * metrics_summary_OPTICS_new.png (OPTICS for new items plot)
   * metrics_summary_OPTICS_new_plus.png (OPTICS for new items in range plot)
+  * metrics_summary_src_sources_found.png (number of times an algorithm finds 100% of the original sources)
 
 Report directory
 ----------------
